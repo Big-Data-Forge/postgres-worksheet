@@ -83,6 +83,32 @@ services:
       postgres:
         condition: service_healthy
 
+  pgbouncer:
+    image: bitnami/pgbouncer:latest
+    container_name: pgbouncer-worksheet
+    ports:
+      - '6432:6432'
+    environment:
+      POSTGRESQL_USERNAME: ${POSTGRES_USER}
+      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRESQL_DATABASE: ${POSTGRES_DB}
+      POSTGRESQL_HOST: ${POSTGRESQL_HOST}
+      POSTGRESQL_PORT: ${POSTGRESQL_PORT}
+
+      PGBOUNCER_DATABASE: ${POSTGRES_DB}
+      PGBOUNCER_AUTH_TYPE: "scram-sha-256"
+      PGBOUNCER_MAX_CLIENT_CONN: "100"
+      PGBOUNCER_MAX_DB_CONNECTIONS: "50"
+      PGBOUNCER_DEFAULT_POOL_SIZE: "20"
+      PGBOUNCER_MIN_POOL_SIZE: "10"
+      PGBOUNCER_RESERVE_POOL_SIZE: "10"
+    restart: unless-stopped
+    networks:
+      - postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
   postgres-data:
     driver: local
