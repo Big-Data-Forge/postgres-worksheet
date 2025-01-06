@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:latest
     container_name: postgres-worksheet
-    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+    command: [ "postgres", "-c", "config_file=/etc/postgresql/postgresql.conf" ]
     ports:
       - "5432:5432"
     environment:
@@ -11,10 +11,10 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./config/postgresql/postgresql.conf:/etc/postgresql/postgresql.conf:ro
-      - ./config/postgresql/scripts:/docker-entrypoint-initdb.d
+      - ./config/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+      - ./scripts:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}"]
+      test: [ "CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}" ]
       interval: 15s
       timeout: 10s
       retries: 5
@@ -22,43 +22,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '1'
           memory: 4G
     restart: unless-stopped
     networks:
       - internal
-
-  pgbouncer:
-    image: bitnami/pgbouncer:latest
-    container_name: pgbouncer-worksheet
-    ports:
-      - '6432:6432'
-    environment:
-      POSTGRESQL_USERNAME: ${POSTGRES_USER}
-      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRESQL_DATABASE: ${POSTGRES_DB}
-      POSTGRESQL_HOST: ${POSTGRESQL_HOST}
-      POSTGRESQL_PORT: ${POSTGRESQL_PORT}
-
-      PGBOUNCER_DATABASE: ${POSTGRES_DB}
-      PGBOUNCER_AUTH_TYPE: "scram-sha-256"
-      PGBOUNCER_MAX_CLIENT_CONN: "100"
-      PGBOUNCER_MAX_DB_CONNECTIONS: "50"
-      PGBOUNCER_DEFAULT_POOL_SIZE: "20"
-      PGBOUNCER_MIN_POOL_SIZE: "10"
-      PGBOUNCER_RESERVE_POOL_SIZE: "10"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 1G
-    restart: unless-stopped
-    networks:
-      - internal
-      - external
-    depends_on:
-      postgres:
-        condition: service_healthy
 
   pgadmin:
     image: dpage/pgadmin4
@@ -78,6 +46,7 @@ services:
           memory: 1G
     restart: unless-stopped
     networks:
+      - internal
       - external
     depends_on:
       postgres:
@@ -104,7 +73,8 @@ services:
       PGBOUNCER_RESERVE_POOL_SIZE: "10"
     restart: unless-stopped
     networks:
-      - postgres
+      - internal
+      - external
     depends_on:
       postgres:
         condition: service_healthy
