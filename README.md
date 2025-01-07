@@ -3,7 +3,7 @@
 [![Postgres](https://img.shields.io/badge/PostgreSQL-%23316192.svg?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Postgres](https://img.shields.io/badge/PgBouncer-%23316192.svg?logo=postgresql&logoColor=white)](https://www.pgbouncer.org/)
 [![Postgres](https://img.shields.io/badge/pgAdmin-%23316192.svg?logo=postgresql&logoColor=white)](https://www.pgadmin.org/)
-
+<br>
 ![OS](https://img.shields.io/badge/OS-Linux%2C%20Windows%2C%20MacOS-0078D4)
 ![CPU](https://img.shields.io/badge/CPU-x86%2C%20x64%2C%20ARM%2C%20ARM64-FF8C00)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Kyrylo-Ktl/advent-of-code)
