@@ -28,30 +28,6 @@ services:
     networks:
       - internal
 
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin-worksheet
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-    ports:
-      - "5050:80"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 1G
-    restart: unless-stopped
-    networks:
-      - internal
-      - external
-    depends_on:
-      postgres:
-        condition: service_healthy
-
   pgbouncer:
     image: bitnami/pgbouncer:latest
     container_name: pgbouncer-worksheet
@@ -74,6 +50,29 @@ services:
     restart: unless-stopped
     networks:
       - internal
+      - external
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-worksheet
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+    restart: unless-stopped
+    networks:
       - external
     depends_on:
       postgres:
