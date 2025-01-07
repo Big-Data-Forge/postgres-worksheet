@@ -8,8 +8,6 @@
 ![CPU](https://img.shields.io/badge/CPU-x86%2C%20x64%2C%20ARM%2C%20ARM64-FF8C00)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Kyrylo-Ktl/advent-of-code)
 
----
-
 # Postgres worksheet
 
 ...
