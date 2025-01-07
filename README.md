@@ -2,7 +2,7 @@
 
 ...
 
-![postgres-worksheet](https://github.com/user-attachments/assets/8473963f-fbca-4216-a9e2-4f52cf97a3fb)
+![Architecture diagram](https://github.com/user-attachments/assets/d20e472b-6c2d-4561-b31c-f8cd13c6a020)
 
 ## Setup
 
