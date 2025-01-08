@@ -19,8 +19,13 @@ This project provides a preconfigured environment for working with PostgreSQL da
 
 ## Architecture
 
+### Components
+
 ![Architecture diagram](https://github.com/user-attachments/assets/d20e472b-6c2d-4561-b31c-f8cd13c6a020)
 
+### Data model
+
+![postgres-worksheet-er](https://github.com/user-attachments/assets/dd8c7574-8d83-4bc8-b134-2d17b6686fa3)
 
 ## Usage
 
