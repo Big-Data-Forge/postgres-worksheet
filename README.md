@@ -26,11 +26,27 @@ It includes the following services:
 
 ### Features
 
-...
+This preconfigured project environment provides the following features:
 
-+ ...;
-+ ...;
-+ ...;
++ **PostgreSQL**
+  + Custom configuration through a mounted `postgresql.conf` file;
+  + Automated data model creation with scripts from mounted `docker-entrypoint-initdb.d` folder;
+  + Persistent data model storage via volumes;
+  + Resources optimal setup - CPU (2) and memory (4G);
+  + Health checks to ensure the database is ready before other services start;
+  + Isolated in the internal Docker network;
+
+
++ **PgBouncer**;
+  + Connection pooling for database to optimize resource usage;
+  + SCRAM-SHA-256 authentication for secure connections;
+  + Resources optimal setup - CPU (0.5) and memory (1G);
+  + Accessible via the external Docker network;
+
+
++ **pgAdmin**;
+  + Persistent configurations storage via volumes;
+  + Resources optimal setup - CPU (0.5) and memory (1G);
 
 ### Data model
 
