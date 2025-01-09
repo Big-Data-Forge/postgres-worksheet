@@ -1,4 +1,4 @@
-CREATE TABLE users
+CREATE TABLE customers
 (
     id         uuid         NOT NULL DEFAULT gen_random_uuid(),
     name       varchar(128) NOT NULL,
@@ -13,6 +13,6 @@ CREATE TABLE users
 );
 
 
-INSERT INTO users (name)
+INSERT INTO customers (name)
 SELECT md5(random()::text)
   FROM generate_series(1, 10000);

@@ -1,18 +1,18 @@
 CREATE TABLE orders
 (
-    id         uuid                        NOT NULL DEFAULT gen_random_uuid(),
-    user_id    uuid                        NOT NULL,
-    product_id uuid                        NOT NULL,
-    amount     smallint                    NOT NULL,
+    id          uuid                        NOT NULL DEFAULT gen_random_uuid(),
+    customer_id uuid                        NOT NULL,
+    product_id  uuid                        NOT NULL,
+    amount      smallint                    NOT NULL,
 
-    created_at timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
-    updated_at timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
-    created_by varchar(256)                NOT NULL DEFAULT current_user,
-    updated_by varchar(256)                NOT NULL DEFAULT current_user,
+    created_at  timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
+    updated_at  timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
+    created_by  varchar(256)                NOT NULL DEFAULT current_user,
+    updated_by  varchar(256)                NOT NULL DEFAULT current_user,
 
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id)
-        REFERENCES users (id)
+    FOREIGN KEY (customer_id)
+        REFERENCES customers (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (product_id)
@@ -22,11 +22,11 @@ CREATE TABLE orders
 );
 
 
-INSERT INTO orders (user_id, product_id, amount)
-SELECT users.id                  AS user_id,
+INSERT INTO orders (customer_id, product_id, amount)
+SELECT customers.id              AS customer_id,
        products.id               AS product_id,
        (random() * 10)::smallint AS amount
-  FROM users
+  FROM customers
       JOIN products
           ON random() <= 0.001
  LIMIT 1000000;
