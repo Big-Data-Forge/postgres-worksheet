@@ -11,8 +11,3 @@ CREATE TABLE customers
     PRIMARY KEY (id),
     UNIQUE (name)
 );
-
-
-INSERT INTO customers (name)
-SELECT md5(random()::text)
-  FROM generate_series(1, 10000);
