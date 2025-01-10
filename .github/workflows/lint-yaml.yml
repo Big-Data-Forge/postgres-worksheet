@@ -1,5 +1,5 @@
 ---
-name: Yaml Lint
+name: Run yaml linter
 on: [push]  # yamllint disable-line rule:truthy
 jobs:
   lintAllTheThings:
